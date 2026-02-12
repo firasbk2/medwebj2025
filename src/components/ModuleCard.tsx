@@ -15,10 +15,13 @@ const ModuleCard = ({ module, index }: ModuleCardProps) => {
       className="group block opacity-0 animate-slide-up"
       style={{ animationDelay: `${index * 60}ms`, animationFillMode: 'forwards' }}
     >
-      <div className="relative overflow-hidden rounded-xl aspect-square flex flex-col items-center justify-center text-center p-4 bg-card border border-border/50 transition-all duration-300 hover:border-primary/40 hover:-translate-y-1"
-        style={{ boxShadow: 'none' }}
-        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 25px hsl(185 100% 50% / 0.1), 0 4px 20px hsl(185 100% 50% / 0.06)'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
+      <div className="relative overflow-hidden rounded-xl aspect-square flex flex-col items-center justify-center text-center p-4 bg-card transition-all duration-300 hover:-translate-y-1"
+        style={{
+          border: '1px solid hsl(185 100% 50% / 0.25)',
+          boxShadow: '0 0 12px hsl(185 100% 50% / 0.08), inset 0 0 12px hsl(185 100% 50% / 0.03)',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 30px hsl(185 100% 50% / 0.2), 0 0 60px hsl(185 100% 50% / 0.08), inset 0 0 20px hsl(185 100% 50% / 0.05)'; e.currentTarget.style.borderColor = 'hsl(185 100% 50% / 0.5)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 12px hsl(185 100% 50% / 0.08), inset 0 0 12px hsl(185 100% 50% / 0.03)'; e.currentTarget.style.borderColor = 'hsl(185 100% 50% / 0.25)'; }}
       >
         {/* Icon */}
         <div className="w-12 h-12 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-primary/12 transition-all duration-300">
