@@ -1,4 +1,4 @@
-import { Globe, BookOpen, GraduationCap, Languages } from "lucide-react";
+import { BookOpen, GraduationCap, Languages } from "lucide-react";
 
 interface LanguageSelectorProps {
   onSelect: (lang: "en" | "fr") => void;
@@ -7,49 +7,35 @@ interface LanguageSelectorProps {
 const LanguageSelector = ({ onSelect }: LanguageSelectorProps) => {
   return (
     <div className="flex flex-col items-center justify-center py-16 opacity-0 animate-fade-in-scale">
-      <div className="w-20 h-20 rounded-3xl glass flex items-center justify-center mb-8 float-animation"
-        style={{ 
-          border: '1px solid hsl(var(--primary) / 0.3)',
-          boxShadow: '0 0 30px hsl(var(--primary) / 0.15)',
-        }}>
-        <Languages className="w-10 h-10 text-primary" />
+      <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+        <Languages className="w-7 h-7 text-primary" />
       </div>
-      <h2 className="font-display text-xl font-bold mb-2 text-foreground">
-        Choose Language
+      <h2 className="text-lg font-bold mb-1 text-foreground">
+        Choisissez la langue
       </h2>
       <p className="text-sm text-muted-foreground mb-8">
-        Choisissez votre langue
+        Choose your language
       </p>
-      <div className="flex gap-5">
+      <div className="flex gap-4">
         <button
           onClick={() => onSelect("en")}
-          className="glass hover-lift px-10 py-5 flex flex-col items-center gap-3 group rounded-2xl"
-          style={{ border: '1px solid hsl(var(--primary) / 0.2)' }}
+          className="px-8 py-5 flex flex-col items-center gap-3 group rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:bg-card/80 transition-all duration-200 hover:-translate-y-1"
         >
-          <div className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05))',
-              border: '1px solid hsl(var(--primary) / 0.25)',
-            }}>
-            <BookOpen className="w-7 h-7 text-primary" strokeWidth={1.5} />
+          <div className="w-12 h-12 rounded-xl bg-primary/8 border border-primary/15 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <BookOpen className="w-6 h-6 text-primary" strokeWidth={1.5} />
           </div>
-          <span className="font-display text-xs font-semibold tracking-wider text-foreground group-hover:text-primary transition-colors">
+          <span className="text-xs font-semibold tracking-wider text-foreground group-hover:text-primary transition-colors">
             ENGLISH
           </span>
         </button>
         <button
           onClick={() => onSelect("fr")}
-          className="glass hover-lift px-10 py-5 flex flex-col items-center gap-3 group rounded-2xl"
-          style={{ border: '1px solid hsl(var(--accent) / 0.2)' }}
+          className="px-8 py-5 flex flex-col items-center gap-3 group rounded-xl bg-card border border-border/50 hover:border-accent/30 hover:bg-card/80 transition-all duration-200 hover:-translate-y-1"
         >
-          <div className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, hsl(var(--accent) / 0.15), hsl(var(--accent) / 0.05))',
-              border: '1px solid hsl(var(--accent) / 0.25)',
-            }}>
-            <GraduationCap className="w-7 h-7 text-accent" strokeWidth={1.5} />
+          <div className="w-12 h-12 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <GraduationCap className="w-6 h-6 text-accent" strokeWidth={1.5} />
           </div>
-          <span className="font-display text-xs font-semibold tracking-wider text-foreground group-hover:text-accent transition-colors">
+          <span className="text-xs font-semibold tracking-wider text-foreground group-hover:text-accent transition-colors">
             FRANÇAIS
           </span>
         </button>
