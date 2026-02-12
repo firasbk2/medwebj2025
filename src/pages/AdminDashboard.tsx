@@ -372,8 +372,15 @@ const AdminDashboard = () => {
             ))}
           </div>
 
-          <button onClick={handleUpload} disabled={!selectedFile || uploading}
-            className="mt-5 w-full py-4 rounded-xl font-display text-sm font-bold tracking-wider transition-all duration-300 disabled:opacity-30 flex items-center justify-center gap-2"
+          {/* Validation message */}
+          {selectedFile && dropdownLevels.length > 0 && !isFileLevel(moduleTree, pathSelections) && pathSelections.length < dropdownLevels.length && (
+            <p className="mt-3 text-xs text-center" style={{ color: 'hsl(var(--neon-orange))' }}>
+              ⚠️ يرجى اختيار جميع الخيارات قبل الرفع
+            </p>
+          )}
+
+          <button onClick={handleUpload} disabled={!selectedFile || uploading || (dropdownLevels.length > 0 && !isFileLevel(moduleTree, pathSelections) && pathSelections.length < dropdownLevels.length)}
+            className="mt-3 w-full py-4 rounded-xl font-display text-sm font-bold tracking-wider transition-all duration-300 disabled:opacity-30 flex items-center justify-center gap-2"
             style={{
               background: selectedFile ? 'linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)))' : 'hsl(240 20% 10%)',
               color: selectedFile ? 'hsl(240 20% 5%)' : 'hsl(240 10% 40%)',
