@@ -166,6 +166,17 @@
     }
   }
 
+  @keyframes pulseRing {
+    0% {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0.4;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.8);
+      opacity: 0;
+    }
+  }
+
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
