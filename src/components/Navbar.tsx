@@ -14,9 +14,9 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
             style={{ 
-              background: 'linear-gradient(135deg, hsl(270 100% 65% / 0.2), hsl(330 100% 60% / 0.15))',
-              border: '1px solid hsl(270 100% 65% / 0.3)',
-              boxShadow: '0 0 20px hsl(270 100% 65% / 0.15)'
+              background: 'linear-gradient(135deg, hsl(var(--neon-cyan) / 0.15), hsl(var(--neon-blue) / 0.1))',
+              border: '1px solid hsl(var(--neon-cyan) / 0.35)',
+              boxShadow: '0 0 20px hsl(var(--neon-cyan) / 0.2)'
             }}>
             <Stethoscope className="w-5 h-5 text-primary" />
           </div>

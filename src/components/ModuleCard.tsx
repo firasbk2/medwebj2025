@@ -7,31 +7,31 @@ interface ModuleCardProps {
 }
 
 const gradients = [
-  "from-purple-600/20 to-pink-600/10 hover:from-purple-600/30 hover:to-pink-600/20",
-  "from-pink-600/20 to-orange-500/10 hover:from-pink-600/30 hover:to-orange-500/20",
   "from-cyan-500/20 to-blue-600/10 hover:from-cyan-500/30 hover:to-blue-600/20",
-  "from-green-500/20 to-cyan-500/10 hover:from-green-500/30 hover:to-cyan-500/20",
+  "from-cyan-400/15 to-teal-500/10 hover:from-cyan-400/25 hover:to-teal-500/20",
+  "from-sky-500/20 to-cyan-500/10 hover:from-sky-500/30 hover:to-cyan-500/20",
+  "from-teal-500/20 to-cyan-400/10 hover:from-teal-500/30 hover:to-cyan-400/20",
 ];
 
 const glowColors = [
-  "group-hover:shadow-[0_0_40px_hsl(270_100%_65%/0.2)]",
-  "group-hover:shadow-[0_0_40px_hsl(330_100%_60%/0.2)]",
-  "group-hover:shadow-[0_0_40px_hsl(185_100%_55%/0.2)]",
-  "group-hover:shadow-[0_0_40px_hsl(150_100%_50%/0.2)]",
+  "group-hover:shadow-[0_0_40px_hsl(185_100%_55%/0.25)]",
+  "group-hover:shadow-[0_0_40px_hsl(185_80%_50%/0.2)]",
+  "group-hover:shadow-[0_0_40px_hsl(200_100%_55%/0.2)]",
+  "group-hover:shadow-[0_0_40px_hsl(170_100%_45%/0.2)]",
 ];
 
 const iconColors = [
-  "text-purple-400 group-hover:text-purple-300",
-  "text-pink-400 group-hover:text-pink-300",
   "text-cyan-400 group-hover:text-cyan-300",
-  "text-green-400 group-hover:text-green-300",
+  "text-cyan-300 group-hover:text-cyan-200",
+  "text-sky-400 group-hover:text-sky-300",
+  "text-teal-400 group-hover:text-teal-300",
 ];
 
 const borderColors = [
-  "border-purple-500/20 hover:border-purple-500/40",
-  "border-pink-500/20 hover:border-pink-500/40",
   "border-cyan-500/20 hover:border-cyan-500/40",
-  "border-green-500/20 hover:border-green-500/40",
+  "border-cyan-400/20 hover:border-cyan-400/40",
+  "border-sky-500/20 hover:border-sky-500/40",
+  "border-teal-500/20 hover:border-teal-500/40",
 ];
 
 const ModuleCard = ({ module, index }: ModuleCardProps) => {
@@ -49,7 +49,7 @@ const ModuleCard = ({ module, index }: ModuleCardProps) => {
         {/* Shimmer effect */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
           style={{
-            background: 'linear-gradient(105deg, transparent 40%, hsla(270, 100%, 65%, 0.06) 45%, hsla(270, 100%, 65%, 0.1) 50%, hsla(270, 100%, 65%, 0.06) 55%, transparent 60%)',
+            background: 'linear-gradient(105deg, transparent 40%, hsla(185, 100%, 55%, 0.06) 45%, hsla(185, 100%, 55%, 0.1) 50%, hsla(185, 100%, 55%, 0.06) 55%, transparent 60%)',
             backgroundSize: '200% 100%',
             animation: 'shimmer 2s ease-in-out infinite',
           }}

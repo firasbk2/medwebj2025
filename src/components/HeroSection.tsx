@@ -6,7 +6,7 @@ const particles = Array.from({ length: 20 }, (_, i) => ({
   delay: `${Math.random() * 8}s`,
   duration: `${8 + Math.random() * 12}s`,
   size: Math.random() * 4 + 2,
-  color: ["var(--neon-purple)", "var(--neon-pink)", "var(--neon-cyan)", "var(--neon-blue)"][i % 4],
+  color: ["var(--neon-cyan)", "var(--neon-blue)", "var(--neon-green)", "var(--neon-cyan)"][i % 4],
 }));
 
 const HeroSection = () => {
@@ -50,15 +50,15 @@ const HeroSection = () => {
             <div className="relative">
               {/* Outer glow ring */}
               <div className="absolute -inset-8 rounded-full opacity-30 animate-rotate-glow"
-                style={{ background: 'conic-gradient(from 0deg, hsl(270 100% 65%), hsl(330 100% 60%), hsl(185 100% 55%), hsl(270 100% 65%))' }}
+                style={{ background: 'conic-gradient(from 0deg, hsl(185 100% 55%), hsl(220 100% 60%), hsl(150 100% 50%), hsl(185 100% 55%))' }}
               />
               <div className="absolute -inset-7 rounded-full bg-background" />
               
               {/* Stethoscope container */}
               <div className="relative w-28 h-28 rounded-3xl flex items-center justify-center neon-glow"
                 style={{ 
-                  background: 'linear-gradient(135deg, hsl(270 100% 65% / 0.2), hsl(330 100% 60% / 0.15))',
-                  border: '2px solid hsl(270 100% 65% / 0.4)',
+                  background: 'linear-gradient(135deg, hsl(var(--neon-cyan) / 0.2), hsl(var(--neon-blue) / 0.15))',
+                  border: '2px solid hsl(var(--neon-cyan) / 0.4)',
                 }}>
                 <Stethoscope className="w-14 h-14 text-primary drop-shadow-lg" strokeWidth={1.5} />
               </div>
@@ -86,11 +86,11 @@ const HeroSection = () => {
           <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 opacity-0 animate-slide-up">
             <span className="text-foreground">Med Students</span>
             <br />
-            <span className="neon-text" style={{ color: 'hsl(var(--primary))' }}>
+            <span className="neon-text" style={{ color: 'hsl(var(--neon-cyan))' }}>
               Bejaia
             </span>
             {" "}
-            <span className="neon-text-pink" style={{ color: 'hsl(var(--neon-pink))' }}>
+            <span className="neon-text" style={{ color: 'hsl(var(--neon-blue))' }}>
               University
             </span>
           </h1>
@@ -102,9 +102,9 @@ const HeroSection = () => {
           {/* Status badges */}
           <div className="flex flex-wrap justify-center gap-4 opacity-0 animate-slide-up stagger-3">
             {[
-              { icon: Zap, label: "8 Modules", color: "var(--neon-purple)" },
-              { icon: Activity, label: "EN / FR", color: "var(--neon-pink)" },
-              { icon: HeartPulse, label: "PDF, Slides, Videos", color: "var(--neon-cyan)" },
+              { icon: Zap, label: "8 Modules", color: "var(--neon-cyan)" },
+              { icon: Activity, label: "EN / FR", color: "var(--neon-blue)" },
+              { icon: HeartPulse, label: "PDF, Slides, Videos", color: "var(--neon-green)" },
             ].map(({ icon: Icon, label, color }) => (
               <div key={label} className="flex items-center gap-2 px-4 py-2 rounded-full glass text-sm">
                 <div className="w-2 h-2 rounded-full pulse-glow" style={{ background: `hsl(${color})`, boxShadow: `0 0 10px hsl(${color} / 0.6)` }} />
