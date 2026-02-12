@@ -1,11 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-password, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 }
-
-const ADMIN_PASSWORD = 'med1'
 
 function jsonResponse(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -14,12 +13,63 @@ function jsonResponse(data: unknown, status = 200) {
   })
 }
 
+// ─── Input Validation Schemas ───
+const safeString = z.string().trim().max(255)
+
+const metadataSchema = z.object({
+  language: z.string().min(1).max(10),
+  module: z.string().min(1).max(100),
+  category: z.string().max(100).optional().default(''),
+  sub_category: safeString.nullable().optional().default(null),
+  topic: safeString.nullable().optional().default(null),
+  region: safeString.nullable().optional().default(null),
+  professor: safeString.nullable().optional().default(null),
+})
+
+const uploadUrlSchema = z.object({
+  fileName: z.string().min(1).max(255),
+  fileType: z.string().min(1).max(100),
+  metadata: metadataSchema,
+})
+
+const confirmUploadSchema = z.object({
+  fileName: z.string().min(1).max(255),
+  filePath: z.string().min(1).max(500),
+  fileSize: z.number().int().min(0).max(500_000_000),
+  fileType: z.string().min(1).max(100),
+  metadata: metadataSchema,
+})
+
+const idSchema = z.object({
+  id: z.string().uuid(),
+})
+
+const toggleVisibilitySchema = z.object({
+  id: z.string().uuid(),
+  is_visible: z.boolean(),
+})
+
+const allowedUpdateFields = ['name', 'category', 'sub_category', 'topic', 'region', 'professor', 'language', 'module', 'is_visible'] as const
+
+const updateSchema = z.object({
+  id: z.string().uuid(),
+}).catchall(z.unknown()).refine((data) => {
+  const keys = Object.keys(data).filter(k => k !== 'id')
+  return keys.length > 0 && keys.every(k => (allowedUpdateFields as readonly string[]).includes(k))
+}, { message: 'Invalid or disallowed update fields' })
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
   try {
+    // Read password from environment variable
+    const ADMIN_PASSWORD = Deno.env.get('ADMIN_PASSWORD')
+    if (!ADMIN_PASSWORD) {
+      return jsonResponse({ error: 'Server configuration error' }, 500)
+    }
+
     const password = req.headers.get('x-admin-password')
     if (password !== ADMIN_PASSWORD) {
       return jsonResponse({ error: 'Unauthorized' }, 401)
@@ -44,10 +94,12 @@ Deno.serve(async (req) => {
     }
 
     // ─── GET SIGNED UPLOAD URL ───
-    // Client sends metadata, we return a signed URL for direct upload
     if (action === 'get-upload-url') {
-      const { fileName, fileType, metadata } = await req.json()
-      if (!fileName || !metadata) throw new Error('Missing fileName or metadata')
+      const parsed = uploadUrlSchema.safeParse(await req.json())
+      if (!parsed.success) {
+        return jsonResponse({ error: 'Invalid input', details: parsed.error.flatten() }, 400)
+      }
+      const { fileName, metadata } = parsed.data
 
       const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, '_')
       const filePath = `${metadata.module}/${metadata.language}/${Date.now()}_${safeName}`
@@ -66,9 +118,13 @@ Deno.serve(async (req) => {
       })
     }
 
-    // ─── CONFIRM UPLOAD (register in DB after direct upload) ───
+    // ─── CONFIRM UPLOAD ───
     if (action === 'confirm-upload') {
-      const { fileName, filePath, fileSize, fileType, metadata } = await req.json()
+      const parsed = confirmUploadSchema.safeParse(await req.json())
+      if (!parsed.success) {
+        return jsonResponse({ error: 'Invalid input', details: parsed.error.flatten() }, 400)
+      }
+      const { fileName, filePath, fileSize, metadata } = parsed.data
 
       const ext = fileName.split('.').pop()?.toLowerCase() || ''
 
@@ -78,7 +134,7 @@ Deno.serve(async (req) => {
           name: fileName,
           file_path: filePath,
           file_type: ext,
-          file_size: fileSize || 0,
+          file_size: fileSize,
           language: metadata.language,
           module: metadata.module,
           category: metadata.category || '',
@@ -96,7 +152,11 @@ Deno.serve(async (req) => {
 
     // ─── DELETE FILE ───
     if (action === 'delete') {
-      const { id } = await req.json()
+      const parsed = idSchema.safeParse(await req.json())
+      if (!parsed.success) {
+        return jsonResponse({ error: 'Invalid input' }, 400)
+      }
+      const { id } = parsed.data
 
       const { data: file } = await supabase
         .from('files')
@@ -115,7 +175,11 @@ Deno.serve(async (req) => {
 
     // ─── TOGGLE VISIBILITY ───
     if (action === 'toggle-visibility') {
-      const { id, is_visible } = await req.json()
+      const parsed = toggleVisibilitySchema.safeParse(await req.json())
+      if (!parsed.success) {
+        return jsonResponse({ error: 'Invalid input' }, 400)
+      }
+      const { id, is_visible } = parsed.data
       const { error } = await supabase
         .from('files')
         .update({ is_visible })
@@ -126,10 +190,24 @@ Deno.serve(async (req) => {
 
     // ─── UPDATE FILE ───
     if (action === 'update') {
-      const { id, ...updates } = await req.json()
+      const body = await req.json()
+      const parsed = updateSchema.safeParse(body)
+      if (!parsed.success) {
+        return jsonResponse({ error: 'Invalid input', details: parsed.error.flatten() }, 400)
+      }
+      const { id, ...updates } = parsed.data as { id: string; [key: string]: unknown }
+      
+      // Only keep allowed fields
+      const safeUpdates: Record<string, unknown> = {}
+      for (const key of allowedUpdateFields) {
+        if (key in updates) {
+          safeUpdates[key] = updates[key]
+        }
+      }
+
       const { error } = await supabase
         .from('files')
-        .update(updates)
+        .update(safeUpdates)
         .eq('id', id)
       if (error) throw error
       return jsonResponse({ success: true })
@@ -150,6 +228,6 @@ Deno.serve(async (req) => {
 
     return jsonResponse({ error: 'Unknown action' }, 400)
   } catch (error) {
-    return jsonResponse({ error: (error as Error).message }, 500)
+    return jsonResponse({ error: 'Internal server error' }, 500)
   }
 })
