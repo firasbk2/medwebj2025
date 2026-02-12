@@ -86,11 +86,11 @@ const HeroSection = () => {
           <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 opacity-0 animate-slide-up">
             <span className="text-foreground">Med Students</span>
             <br />
-            <span className="neon-text" style={{ color: 'hsl(var(--neon-cyan))' }}>
+            <span className="text-primary">
               Bejaia
             </span>
             {" "}
-            <span className="neon-text" style={{ color: 'hsl(var(--neon-blue))' }}>
+            <span style={{ color: 'hsl(var(--neon-blue))' }}>
               University
             </span>
           </h1>
