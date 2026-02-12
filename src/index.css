@@ -6,53 +6,53 @@
 
 @layer base {
   :root {
-    --background: 225 15% 6%;
-    --foreground: 0 0% 96%;
+    --background: 220 20% 5%;
+    --foreground: 190 20% 95%;
 
-    --card: 225 15% 9%;
-    --card-foreground: 0 0% 96%;
+    --card: 220 20% 8%;
+    --card-foreground: 190 20% 95%;
 
-    --popover: 225 15% 9%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 220 20% 8%;
+    --popover-foreground: 190 20% 95%;
 
-    --primary: 210 100% 60%;
-    --primary-foreground: 225 15% 6%;
+    --primary: 185 100% 50%;
+    --primary-foreground: 220 20% 5%;
 
-    --secondary: 225 15% 12%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 200 20% 12%;
+    --secondary-foreground: 190 20% 90%;
 
-    --muted: 225 12% 14%;
-    --muted-foreground: 225 8% 50%;
+    --muted: 210 15% 14%;
+    --muted-foreground: 200 15% 45%;
 
-    --accent: 260 80% 65%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 195 80% 60%;
+    --accent-foreground: 220 20% 5%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 225 12% 14%;
-    --input: 225 12% 14%;
-    --ring: 210 100% 60%;
+    --border: 200 15% 15%;
+    --input: 200 15% 15%;
+    --ring: 185 100% 50%;
 
     --radius: 0.75rem;
 
-    --neon-purple: 260 80% 65%;
-    --neon-pink: 330 80% 60%;
-    --neon-cyan: 195 90% 55%;
-    --neon-blue: 210 100% 60%;
-    --neon-green: 160 80% 50%;
-    --neon-orange: 25 90% 55%;
-    --glass-bg: 225 15% 8%;
-    --glass-border: 225 12% 18%;
+    --neon-purple: 195 80% 60%;
+    --neon-pink: 185 90% 45%;
+    --neon-cyan: 185 100% 50%;
+    --neon-blue: 200 90% 55%;
+    --neon-green: 175 80% 45%;
+    --neon-orange: 185 60% 40%;
+    --glass-bg: 220 20% 7%;
+    --glass-border: 200 15% 18%;
 
-    --sidebar-background: 225 15% 7%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 210 100% 60%;
-    --sidebar-primary-foreground: 225 15% 6%;
-    --sidebar-accent: 225 15% 12%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 225 12% 14%;
-    --sidebar-ring: 210 100% 60%;
+    --sidebar-background: 220 20% 6%;
+    --sidebar-foreground: 190 20% 95%;
+    --sidebar-primary: 185 100% 50%;
+    --sidebar-primary-foreground: 220 20% 5%;
+    --sidebar-accent: 200 20% 12%;
+    --sidebar-accent-foreground: 190 20% 90%;
+    --sidebar-border: 200 15% 15%;
+    --sidebar-ring: 185 100% 50%;
   }
 }
 
@@ -89,7 +89,7 @@
   }
 
   .neon-glow {
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.15);
+    box-shadow: 0 4px 24px hsl(185 100% 50% / 0.12);
   }
 
   .neon-glow-sm {
