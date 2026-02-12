@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Upload, Trash2, Eye, EyeOff, BarChart3, Files, HardDrive,
   Loader2, LogOut, Lock, Edit3, X, Check, CloudUpload, Stethoscope,
@@ -54,6 +54,7 @@ function isFileLevel(tree: ModuleCategory[], selections: string[]): boolean {
 }
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, loading, login, logout, uploadFile, deleteFile, toggleVisibility, getStats, listFiles, updateFile } = useAdmin();
   const [password, setPassword] = useState("");
   const [files, setFiles] = useState<FileRecord[]>([]);
@@ -281,7 +282,7 @@ const AdminDashboard = () => {
               </h1>
             </div>
           </div>
-          <button onClick={() => { logout(); window.location.href = "/"; }}
+          <button onClick={() => { logout(); navigate("/"); }}
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all hover:bg-destructive/10"
             style={{ color: 'hsl(var(--neon-pink))' }}>
             <LogOut className="w-4 h-4" /> Logout
