@@ -32,7 +32,7 @@ const LanguageSelector = ({ onSelect }: LanguageSelectorProps) => {
           onClick={() => onSelect("fr")}
           className="px-8 py-5 flex flex-col items-center gap-3 group rounded-xl bg-card border border-border/50 hover:border-accent/30 hover:bg-card/80 transition-all duration-200 hover:-translate-y-1"
         >
-          <div className="w-12 h-12 rounded-xl bg-accent/8 border border-accent/15 flex items-center justify-center group-hover:scale-105 transition-transform">
+          <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:scale-105 transition-transform">
             <GraduationCap className="w-6 h-6 text-accent" strokeWidth={1.5} />
           </div>
           <span className="text-xs font-semibold tracking-wider text-foreground group-hover:text-accent transition-colors">
