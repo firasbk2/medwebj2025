@@ -18,7 +18,7 @@ const Index = () => {
           <div className="w-20 h-0.5 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--primary)), transparent)' }} />
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
           {modules.map((mod, i) => (
             <ModuleCard key={mod.id} module={mod} index={i} />
           ))}
