@@ -1,4 +1,4 @@
-import { Bone, FlaskConical, Atom, BarChart3, Beaker, TestTubes, Microscope, HeartPulse } from "lucide-react";
+import { Bone, FlaskConical, Atom, BarChart3, Beaker, TestTubes, Microscope, HeartPulse, Circle } from "lucide-react";
 
 export interface ModuleCategory {
   label: string;
@@ -196,6 +196,19 @@ export const modules: ModuleConfig[] = [
     color: "neon-green",
     description: "Study of tissue structure",
     descriptionFr: "Étude de la structure des tissus",
+    tree: [
+      { label: "Cours", isFileLevel: true },
+      { label: "TP", isFileLevel: true },
+    ],
+  },
+  {
+    id: "cytologie",
+    name: "Cytology",
+    nameFr: "Cytologie",
+    icon: Circle,
+    color: "neon-cyan",
+    description: "Study of cell structure and function",
+    descriptionFr: "Étude de la structure et fonction des cellules",
     tree: [
       { label: "Cours", isFileLevel: true },
       { label: "TP", isFileLevel: true },
