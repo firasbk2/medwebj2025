@@ -16,7 +16,7 @@ const Navbar = () => {
             <GraduationCap className="w-4 h-4 text-primary" />
           </div>
           <span className="text-sm font-bold tracking-tight text-foreground">
-            Med<span className="text-primary">Bejaia</span>
+            Méd<span className="text-primary">Béjaia</span>
           </span>
         </Link>
 
