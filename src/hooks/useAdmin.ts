@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import type { FileRecord } from "@/types/files";
 
 const STORAGE_KEY = "med-admin-auth";
 
@@ -44,10 +43,10 @@ export const useAdmin = () => {
   const adminFetch = useCallback(
     async (action: string, options?: { method?: string; body?: any; formData?: FormData }) => {
       const pwd = getPassword();
-      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin?action=${action}`;
+      const url = `${getBaseUrl()}?action=${action}`;
       const headers: Record<string, string> = {
         "x-admin-password": pwd,
-        apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        apikey: getApiKey(),
       };
 
       const fetchOptions: RequestInit = {
@@ -98,31 +97,31 @@ export const useAdmin = () => {
     [adminFetch]
   );
 
+  const updateFile = useCallback(
+    (id: string, updates: Record<string, any>) =>
+      adminFetch("update", { body: { id, ...updates } }),
+    [adminFetch]
+  );
+
   const getStats = useCallback(
     () =>
-      fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin?action=stats`,
-        {
-          headers: {
-            "x-admin-password": getPassword(),
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      ).then((r) => r.json()),
+      fetch(`${getBaseUrl()}?action=stats`, {
+        headers: {
+          "x-admin-password": getPassword(),
+          apikey: getApiKey(),
+        },
+      }).then((r) => r.json()),
     []
   );
 
   const listFiles = useCallback(
     () =>
-      fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin?action=list`,
-        {
-          headers: {
-            "x-admin-password": getPassword(),
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      ).then((r) => r.json()),
+      fetch(`${getBaseUrl()}?action=list`, {
+        headers: {
+          "x-admin-password": getPassword(),
+          apikey: getApiKey(),
+        },
+      }).then((r) => r.json()),
     []
   );
 
@@ -134,6 +133,7 @@ export const useAdmin = () => {
     uploadFile,
     deleteFile,
     toggleVisibility,
+    updateFile,
     getStats,
     listFiles,
   };
