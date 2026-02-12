@@ -223,8 +223,70 @@ export const modules: ModuleConfig[] = [
     description: "Functions of living organisms",
     descriptionFr: "Fonctions des organismes vivants",
     tree: [
-      { label: "Cours", isFileLevel: true },
-      { label: "Animations", isFileLevel: true },
+      {
+        label: "La Membrane Plasmique",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Milieu Intérieur",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Ligand-Récepteur",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Système Nerveux Autonome",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Électrophysiologie",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Synapse",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Muscle Squelettique",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
+      {
+        label: "Bioénergie",
+        children: [
+          { label: "Cours", isFileLevel: true },
+          { label: "Animations", isFileLevel: true },
+          { label: "Lecture", isFileLevel: true },
+        ],
+      },
     ],
   },
 ];
