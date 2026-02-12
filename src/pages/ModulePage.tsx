@@ -50,9 +50,9 @@ const ModulePage = () => {
   if (!moduleConfig) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center gap-4">
-        <p className="text-muted-foreground font-display">Module not found</p>
+        <p className="text-muted-foreground">Module introuvable</p>
         <Link to="/" className="flex items-center gap-2 text-primary hover:underline text-sm">
-          <Home className="w-4 h-4" /> Back to Home
+          <Home className="w-4 h-4" /> Retour à l'accueil
         </Link>
       </div>
     );
@@ -134,7 +134,7 @@ const ModulePage = () => {
           <CategorySelector
             categories={childCategories}
             onSelect={handleCategorySelect}
-            title="Select a category"
+            title="Sélectionnez une catégorie"
           />
         ) : (
           <FileList

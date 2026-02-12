@@ -14,7 +14,7 @@ const LanguageSelector = ({ onSelect }: LanguageSelectorProps) => {
         Choisissez la langue
       </h2>
       <p className="text-sm text-muted-foreground mb-8">
-        Choose your language
+        Sélectionnez la langue des documents
       </p>
       <div className="flex gap-4">
         <button

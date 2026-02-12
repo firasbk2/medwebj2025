@@ -47,11 +47,11 @@ const FileCard = ({ file }: FileCardProps) => {
       <div className="flex gap-2 mt-3">
         <a href={storageUrl} target="_blank" rel="noopener noreferrer"
           className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-primary/10 text-primary text-xs font-medium hover:bg-primary/15 transition-colors">
-          <Eye className="w-3.5 h-3.5" /> Preview
+          <Eye className="w-3.5 h-3.5" /> Aperçu
         </a>
         <a href={storageUrl} download={file.name}
           className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-secondary text-foreground text-xs font-medium hover:bg-secondary/80 transition-colors">
-          <Download className="w-3.5 h-3.5" /> Download
+          <Download className="w-3.5 h-3.5" /> Télécharger
         </a>
       </div>
     </div>
