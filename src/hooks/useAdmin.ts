@@ -41,12 +41,13 @@ export const useAdmin = () => {
   }, []);
 
   const adminFetch = useCallback(
-    async (action: string, options?: { method?: string; body?: any; formData?: FormData }) => {
+    async (action: string, options?: { method?: string; body?: any }) => {
       const pwd = getPassword();
       const url = `${getBaseUrl()}?action=${action}`;
       const headers: Record<string, string> = {
         "x-admin-password": pwd,
         apikey: getApiKey(),
+        "Content-Type": "application/json",
       };
 
       const fetchOptions: RequestInit = {
@@ -54,11 +55,7 @@ export const useAdmin = () => {
         headers,
       };
 
-      if (options?.formData) {
-        fetchOptions.body = options.formData;
-      } else if (options?.body) {
-        headers["Content-Type"] = "application/json";
-        fetchOptions.headers = headers;
+      if (options?.body) {
         fetchOptions.body = JSON.stringify(options.body);
       }
 
@@ -76,12 +73,42 @@ export const useAdmin = () => {
     [logout]
   );
 
+  // Two-step upload: get signed URL → upload directly to storage → confirm in DB
   const uploadFile = useCallback(
     async (file: File, metadata: Record<string, string>) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("metadata", JSON.stringify(metadata));
-      return adminFetch("upload", { formData });
+      // Step 1: Get signed upload URL from edge function
+      const { signedUrl, filePath } = await adminFetch("get-upload-url", {
+        body: {
+          fileName: file.name,
+          fileType: file.type,
+          metadata,
+        },
+      });
+
+      // Step 2: Upload file directly to storage using signed URL
+      const uploadRes = await fetch(signedUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!uploadRes.ok) {
+        const errText = await uploadRes.text();
+        throw new Error(`Upload failed: ${errText}`);
+      }
+
+      // Step 3: Confirm upload in database
+      return adminFetch("confirm-upload", {
+        body: {
+          fileName: file.name,
+          filePath,
+          fileSize: file.size,
+          fileType: file.type,
+          metadata,
+        },
+      });
     },
     [adminFetch]
   );
