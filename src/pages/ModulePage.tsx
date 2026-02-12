@@ -70,7 +70,7 @@ const ModulePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background scrollbar-cyber">
+    <div className="min-h-screen scrollbar-cyber" style={{ background: 'linear-gradient(180deg, #050505 0%, #0A0F1E 50%, #050510 100%)' }}>
       <Navbar />
 
       <div className="container mx-auto px-4 pt-24 pb-20 max-w-3xl">
