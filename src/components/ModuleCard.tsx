@@ -58,11 +58,12 @@ const ModuleCard = ({ module, index }: ModuleCardProps) => {
         
         <div className="relative flex items-start gap-4">
           <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500"
+            className="w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500"
             style={{
               background: 'linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05))',
               border: '1px solid hsl(var(--primary) / 0.25)',
               boxShadow: '0 0 15px hsl(var(--primary) / 0.1)',
+              borderRadius: '12px',
             }}
           >
             <Icon className="w-7 h-7 text-primary group-hover:drop-shadow-lg transition-all duration-300" strokeWidth={1.5} />
