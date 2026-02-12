@@ -2,7 +2,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-admin-password, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 }
 
 const ADMIN_PASSWORD = 'med1'
@@ -52,14 +52,12 @@ Deno.serve(async (req) => {
       const ext = file.name.split('.').pop()?.toLowerCase() || ''
       const filePath = `${metadata.module}/${metadata.language}/${Date.now()}_${file.name}`
 
-      // Upload to storage
       const { error: uploadError } = await supabase.storage
         .from('medical-resources')
         .upload(filePath, file, { contentType: file.type })
 
       if (uploadError) throw uploadError
 
-      // Insert file record
       const { data, error: insertError } = await supabase
         .from('files')
         .insert({
@@ -87,7 +85,6 @@ Deno.serve(async (req) => {
     if (action === 'delete') {
       const { id } = await req.json()
 
-      // Get file path first
       const { data: file } = await supabase
         .from('files')
         .select('file_path')
@@ -138,8 +135,8 @@ Deno.serve(async (req) => {
         .select('id, module, file_size')
 
       const totalFiles = files?.length || 0
-      const totalSize = files?.reduce((sum, f) => sum + (f.file_size || 0), 0) || 0
-      const moduleCount = new Set(files?.map(f => f.module)).size
+      const totalSize = files?.reduce((sum: number, f: any) => sum + (f.file_size || 0), 0) || 0
+      const moduleCount = new Set(files?.map((f: any) => f.module)).size
 
       return new Response(JSON.stringify({ totalFiles, totalSize, moduleCount }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -151,7 +148,7 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
