@@ -12,16 +12,18 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong" style={{ borderRadius: 0 }}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-            style={{ 
-              background: 'linear-gradient(135deg, hsl(var(--neon-cyan) / 0.15), hsl(var(--neon-blue) / 0.1))',
-              border: '1px solid hsl(var(--neon-cyan) / 0.35)',
-              boxShadow: '0 0 20px hsl(var(--neon-cyan) / 0.2)'
-            }}>
-            <Stethoscope className="w-5 h-5 text-primary" />
+          <div className="relative flex flex-col items-center">
+            <span className="text-lg animate-bounce" style={{ animationDuration: '2s', lineHeight: 1 }}>🩺</span>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 -mt-1"
+              style={{ 
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.08))',
+                border: '1px solid hsl(var(--primary) / 0.3)',
+              }}>
+              <Stethoscope className="w-5 h-5 text-primary" />
+            </div>
           </div>
           <span className="font-display text-sm font-bold tracking-wider text-foreground hidden sm:block">
-            MED<span className="text-primary neon-text">BEJAIA</span>
+            MED<span className="text-primary">BEJAIA</span>
           </span>
         </Link>
 
