@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const typeIcons: Record<string, typeof FileText> = {
   pdf: FileText, pptx: FileText, ppt: FileText, docx: FileText, doc: FileText,
-  mp4: Film, jpg: FileImage, jpeg: FileImage, png: FileImage,
+  mp4: Film, swf: Film, jpg: FileImage, jpeg: FileImage, png: FileImage,
 };
 
 // Extract all selectable paths from a module's tree
@@ -134,7 +134,8 @@ const AdminDashboard = () => {
       if (p[0]) meta.professor = p[0];
       if (p[1]) meta.category = p[1].toLowerCase();
     } else if (modId === "physiologie") {
-      if (p[0]) meta.category = p[0].toLowerCase();
+      if (p[0]) meta.topic = p[0];
+      if (p[1]) meta.category = p[1].toLowerCase();
     } else {
       // chimie-g, chimie-o, histology
       if (p[0]) meta.category = p[0].toLowerCase();
@@ -328,7 +329,7 @@ const AdminDashboard = () => {
               background: dragOver ? 'hsl(var(--neon-cyan) / 0.03)' : 'hsl(240 20% 5%)',
               boxShadow: dragOver ? '0 0 30px hsl(var(--neon-cyan) / 0.1)' : 'none',
             }}>
-            <input ref={fileInputRef} type="file" className="hidden" accept=".pdf,.pptx,.ppt,.docx,.doc,.mp4,.mov,.jpg,.jpeg,.png,.webp"
+            <input ref={fileInputRef} type="file" className="hidden" accept=".pdf,.pptx,.ppt,.docx,.doc,.mp4,.mov,.jpg,.jpeg,.png,.webp,.swf"
               onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} />
             <CloudUpload className={`w-12 h-12 mx-auto mb-3 transition-all duration-300 ${dragOver ? 'text-neon-cyan scale-110' : 'text-muted-foreground'}`} />
             {selectedFile ? (
@@ -339,7 +340,7 @@ const AdminDashboard = () => {
             ) : (
               <div>
                 <p className="text-sm text-foreground/80 font-medium">Drag & drop a file here</p>
-                <p className="text-xs text-muted-foreground mt-1">PDF, PPTX, DOCX, MP4, JPG, PNG</p>
+                <p className="text-xs text-muted-foreground mt-1">PDF, PPTX, DOCX, MP4, SWF, JPG, PNG</p>
               </div>
             )}
           </div>
