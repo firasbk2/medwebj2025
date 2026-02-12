@@ -1,8 +1,10 @@
 import { useState, useCallback } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import type { FileRecord } from "@/types/files";
 
 const STORAGE_KEY = "med-admin-auth";
+
+const getBaseUrl = () => `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin`;
+const getApiKey = () => import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 export const useAdmin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -15,24 +17,13 @@ export const useAdmin = () => {
   const login = useCallback(async (password: string): Promise<boolean> => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("admin", {
-        headers: { "x-admin-password": password },
-        body: null,
+      const res = await fetch(`${getBaseUrl()}?action=stats`, {
+        headers: {
+          "x-admin-password": password,
+          apikey: getApiKey(),
+        },
       });
-      // Simple check: if we get 401 it's wrong
-      if (error) {
-        // Try stats as a validation call
-        const res = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin?action=stats`,
-          {
-            headers: {
-              "x-admin-password": password,
-              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        );
-        if (!res.ok) return false;
-      }
+      if (!res.ok) return false;
       sessionStorage.setItem(STORAGE_KEY, "true");
       sessionStorage.setItem("med-admin-pwd", password);
       setIsAuthenticated(true);
