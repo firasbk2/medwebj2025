@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      files: {
+        Row: {
+          category: string
+          created_at: string
+          file_path: string
+          file_size: number | null
+          file_type: string
+          id: string
+          is_visible: boolean
+          language: string
+          module: string
+          name: string
+          professor: string | null
+          region: string | null
+          sub_category: string | null
+          topic: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          file_path: string
+          file_size?: number | null
+          file_type: string
+          id?: string
+          is_visible?: boolean
+          language: string
+          module: string
+          name: string
+          professor?: string | null
+          region?: string | null
+          sub_category?: string | null
+          topic?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          file_path?: string
+          file_size?: number | null
+          file_type?: string
+          id?: string
+          is_visible?: boolean
+          language?: string
+          module?: string
+          name?: string
+          professor?: string | null
+          region?: string | null
+          sub_category?: string | null
+          topic?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

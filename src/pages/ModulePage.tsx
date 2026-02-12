@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import LanguageSelector from "@/components/LanguageSelector";
 import CategorySelector from "@/components/CategorySelector";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import EmptyState from "@/components/EmptyState";
+import FileList from "@/components/FileList";
 import { modules, type ModuleCategory } from "@/data/modules";
 
 const ModulePage = () => {
@@ -103,7 +103,11 @@ const ModulePage = () => {
         {!language ? (
           <LanguageSelector onSelect={handleLanguageSelect} />
         ) : showFiles ? (
-          <EmptyState />
+          <FileList
+            module={moduleConfig.id}
+            language={language}
+            path={path.map((p) => p.label)}
+          />
         ) : childCategories.length > 0 ? (
           <CategorySelector
             categories={childCategories}
@@ -111,7 +115,11 @@ const ModulePage = () => {
             title="Select a category"
           />
         ) : (
-          <EmptyState />
+          <FileList
+            module={moduleConfig.id}
+            language={language}
+            path={path.map((p) => p.label)}
+          />
         )}
       </div>
     </div>
