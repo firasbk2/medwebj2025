@@ -191,7 +191,7 @@ const AdminDashboard = () => {
               </h1>
             </div>
           </div>
-          <button onClick={logout} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all">
+          <button onClick={() => { logout(); window.location.href = "/"; }} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all">
             <LogOut className="w-4 h-4" />
             Logout
           </button>
