@@ -20,15 +20,23 @@ const CategorySelector = ({ categories, onSelect, title }: CategorySelectorProps
           <button
             key={cat.label}
             onClick={() => onSelect(cat)}
-            className={`glass neon-border hover-lift p-4 flex items-center gap-3 text-left group opacity-0 animate-slide-up stagger-${i + 1}`}
+            className={`glass hover-lift p-4 flex items-center gap-3 text-left group opacity-0 animate-slide-up stagger-${i + 1}`}
+            style={{ border: '1px solid hsl(var(--primary) / 0.15)' }}
           >
-            <div className="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300"
+              style={{ 
+                background: 'linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--neon-pink) / 0.05))',
+                border: '1px solid hsl(var(--primary) / 0.2)',
+              }}>
               <Folder className="w-5 h-5 text-primary/70 group-hover:text-primary transition-colors" />
             </div>
             <div className="flex-1 min-w-0">
               <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
                 {cat.label}
               </span>
+              {cat.children && (
+                <p className="text-xs text-muted-foreground mt-0.5">{cat.children.length} items</p>
+              )}
             </div>
             <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
           </button>
