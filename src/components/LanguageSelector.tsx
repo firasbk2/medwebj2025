@@ -1,4 +1,4 @@
-import { Globe, Languages } from "lucide-react";
+import { Globe, BookOpen, GraduationCap, Languages } from "lucide-react";
 
 interface LanguageSelectorProps {
   onSelect: (lang: "en" | "fr") => void;
@@ -24,19 +24,31 @@ const LanguageSelector = ({ onSelect }: LanguageSelectorProps) => {
         <button
           onClick={() => onSelect("en")}
           className="glass hover-lift px-10 py-5 flex flex-col items-center gap-3 group rounded-2xl"
-          style={{ border: '1px solid hsl(var(--neon-cyan) / 0.2)' }}
+          style={{ border: '1px solid hsl(var(--primary) / 0.2)' }}
         >
-          <span className="text-3xl group-hover:scale-125 transition-transform duration-300">🇬🇧</span>
-          <span className="font-display text-xs font-semibold tracking-wider text-foreground group-hover:text-neon-cyan transition-colors">
+          <div className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05))',
+              border: '1px solid hsl(var(--primary) / 0.25)',
+            }}>
+            <BookOpen className="w-7 h-7 text-primary" strokeWidth={1.5} />
+          </div>
+          <span className="font-display text-xs font-semibold tracking-wider text-foreground group-hover:text-primary transition-colors">
             ENGLISH
           </span>
         </button>
         <button
           onClick={() => onSelect("fr")}
           className="glass hover-lift px-10 py-5 flex flex-col items-center gap-3 group rounded-2xl"
-          style={{ border: '1px solid hsl(var(--neon-pink) / 0.2)' }}
+          style={{ border: '1px solid hsl(var(--accent) / 0.2)' }}
         >
-          <span className="text-3xl group-hover:scale-125 transition-transform duration-300">🇫🇷</span>
+          <div className="w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--accent) / 0.15), hsl(var(--accent) / 0.05))',
+              border: '1px solid hsl(var(--accent) / 0.25)',
+            }}>
+            <GraduationCap className="w-7 h-7 text-accent" strokeWidth={1.5} />
+          </div>
           <span className="font-display text-xs font-semibold tracking-wider text-foreground group-hover:text-accent transition-colors">
             FRANÇAIS
           </span>
