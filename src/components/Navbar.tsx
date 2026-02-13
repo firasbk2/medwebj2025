@@ -53,15 +53,25 @@ const Navbar = () => {
               {searchQuery.length >= 2 && results && results.length > 0 && (
                 <div className="absolute top-full mt-2 left-0 right-8 glass-crystal p-1.5 max-h-64 overflow-y-auto z-50 glow-ambient">
                   {results.map((file) => {
-                    const storageUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/medical-resources/${file.file_path}`;
+                    const handleClick = async () => {
+                      try {
+                        const res = await fetch(
+                          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin?action=file-url&id=${file.id}`,
+                          { headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY } }
+                        );
+                        if (!res.ok) return;
+                        const data = await res.json();
+                        if (data.url) window.open(data.url, "_blank", "noopener,noreferrer");
+                      } catch {}
+                    };
                     return (
-                      <a key={file.id} href={storageUrl} target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary/50 transition-colors">
+                      <button key={file.id} onClick={handleClick}
+                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-secondary/50 transition-colors w-full text-left">
                         <div className="flex-1 min-w-0">
                           <p className="text-sm text-foreground truncate">{file.name}</p>
                           <p className="text-xs text-muted-foreground">{file.module} · {file.category}</p>
                         </div>
-                      </a>
+                      </button>
                     );
                   })}
                 </div>

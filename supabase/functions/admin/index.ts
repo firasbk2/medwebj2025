@@ -63,6 +63,46 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders })
   }
 
+  const url = new URL(req.url)
+  const action = url.searchParams.get('action')
+
+  // ─── PUBLIC: GET FILE URL (no admin auth required) ───
+  if (action === 'file-url' && req.method === 'GET') {
+    try {
+      const fileId = url.searchParams.get('id')
+      if (!fileId || !z.string().uuid().safeParse(fileId).success) {
+        return jsonResponse({ error: 'Invalid file ID' }, 400)
+      }
+
+      const supabase = createClient(
+        Deno.env.get('SUPABASE_URL')!,
+        Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+      )
+
+      const { data: file, error } = await supabase
+        .from('files')
+        .select('file_path, is_visible, name')
+        .eq('id', fileId)
+        .single()
+
+      if (error || !file || !file.is_visible) {
+        return jsonResponse({ error: 'File not found' }, 404)
+      }
+
+      const { data: signedData, error: signError } = await supabase.storage
+        .from('medical-resources')
+        .createSignedUrl(file.file_path, 3600) // 1 hour expiry
+
+      if (signError || !signedData) {
+        return jsonResponse({ error: 'Could not generate URL' }, 500)
+      }
+
+      return jsonResponse({ url: signedData.signedUrl, name: file.name })
+    } catch {
+      return jsonResponse({ error: 'Internal server error' }, 500)
+    }
+  }
+
   try {
     // Read password from environment variable
     const ADMIN_PASSWORD = Deno.env.get('ADMIN_PASSWORD')

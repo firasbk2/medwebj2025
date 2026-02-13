@@ -1,7 +1,6 @@
 export interface FileRecord {
   id: string;
   name: string;
-  file_path: string;
   file_type: string;
   file_size: number;
   language: string;

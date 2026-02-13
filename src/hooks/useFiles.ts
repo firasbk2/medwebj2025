@@ -20,11 +20,10 @@ export const useFiles = (filters: FileFilters | null) => {
     queryFn: async () => {
       if (!filters) return [];
       let query = supabase
-        .from("files")
+        .from("files_public" as any)
         .select("*")
         .eq("language", filters.language)
-        .eq("module", filters.module)
-        .eq("is_visible", true);
+        .eq("module", filters.module);
 
       if (filters.category) query = query.eq("category", filters.category);
       if (filters.sub_category) query = query.eq("sub_category", filters.sub_category);
@@ -45,9 +44,8 @@ export const useSearchFiles = (query: string) => {
     enabled: query.length >= 2,
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("files")
+        .from("files_public" as any)
         .select("*")
-        .eq("is_visible", true)
         .ilike("name", `%${query}%`)
         .order("created_at", { ascending: false })
         .limit(20);
