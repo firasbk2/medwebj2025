@@ -39,47 +39,68 @@ const ModuleCard = ({ module, index }: ModuleCardProps) => {
       className="group block opacity-0 animate-slide-up"
       style={{ animationDelay: `${index * 80}ms`, animationFillMode: 'forwards' }}
     >
-      <div className="relative overflow-hidden rounded-2xl h-64 neon-edge-pulse transition-all duration-500 hover:-translate-y-2"
-        style={{ animationDelay: `${index * 0.4}s` }}
+      <div className="relative overflow-hidden rounded-2xl h-72 transition-all duration-500 hover:-translate-y-2"
+        style={{
+          background: 'linear-gradient(135deg, hsl(210 50% 15% / 0.4), hsl(215 45% 8% / 0.6))',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid hsl(200 80% 50% / 0.15)',
+          boxShadow: '0 8px 32px hsl(200 80% 40% / 0.08), inset 0 1px 0 hsl(200 80% 70% / 0.08)',
+        }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = '0 16px 60px hsl(192 100% 50% / 0.15), 0 0 80px hsl(192 100% 50% / 0.06)';
+          e.currentTarget.style.boxShadow = '0 20px 60px hsl(200 80% 50% / 0.15), inset 0 1px 0 hsl(200 80% 70% / 0.12)';
+          e.currentTarget.style.borderColor = 'hsl(200 80% 50% / 0.3)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = '';
+          e.currentTarget.style.boxShadow = '0 8px 32px hsl(200 80% 40% / 0.08), inset 0 1px 0 hsl(200 80% 70% / 0.08)';
+          e.currentTarget.style.borderColor = 'hsl(200 80% 50% / 0.15)';
         }}
       >
-        {/* Background image */}
+        {/* Background image - positioned to the right */}
         {image && (
-          <img
-            src={image}
-            alt={module.nameFr}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            loading="lazy"
-          />
+          <div className="absolute right-0 top-0 w-[60%] h-full">
+            <img
+              src={image}
+              alt={module.nameFr}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+            {/* Gradient fade from left */}
+            <div className="absolute inset-0" style={{
+              background: 'linear-gradient(to right, hsl(210 50% 10% / 0.95) 0%, hsl(210 50% 10% / 0.4) 60%, transparent 100%)',
+            }} />
+          </div>
         )}
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 transition-all duration-500"
-          style={{
-            background: 'linear-gradient(to top, hsl(220 40% 2% / 0.95) 0%, hsl(220 40% 2% / 0.5) 50%, hsl(220 40% 2% / 0.3) 100%)',
-          }}
-        />
+        {/* Top glass shine */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{
+          background: 'linear-gradient(to right, transparent, hsl(200 80% 70% / 0.2), transparent)',
+        }} />
 
-        {/* Hover light sweep */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{ background: 'linear-gradient(135deg, hsl(192 100% 50% / 0.05), transparent 60%)' }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-end p-5">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 glass-crystal group-hover:scale-110 transition-transform duration-300"
-            style={{ border: '1px solid hsl(192 100% 50% / 0.15)' }}>
-            <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
+        {/* Content - left aligned like reference */}
+        <div className="relative z-10 h-full flex flex-col justify-end p-6">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-4 w-fit"
+            style={{
+              background: 'hsl(200 80% 50% / 0.12)',
+              border: '1px solid hsl(200 80% 50% / 0.2)',
+            }}>
+            <Icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
+            <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">
+              {module.id.replace('-', ' ')}
+            </span>
           </div>
-          <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-1">
+
+          {/* Title */}
+          <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2 leading-tight">
             {module.nameFr}
           </h3>
-          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+
+          {/* Accent line */}
+          <div className="w-12 h-0.5 rounded-full mb-3 transition-all duration-300 group-hover:w-20"
+            style={{ background: 'linear-gradient(to right, hsl(200 80% 50% / 0.6), hsl(192 100% 50% / 0.3))' }} />
+
+          {/* Description */}
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 max-w-[70%]">
             {module.descriptionFr}
           </p>
         </div>
