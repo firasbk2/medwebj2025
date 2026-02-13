@@ -136,8 +136,13 @@ const AdminDashboard = () => {
     } else if (modId === "physiologie") {
       if (p[0]) meta.topic = p[0];
       if (p[1]) meta.category = p[1].toLowerCase();
+    } else if (modId === "histology") {
+      if (p[0]) meta.category = p[0].toLowerCase();
+      if (p[0]?.toLowerCase() === "cours" && p[1]) meta.topic = p[1];
+    } else if (modId === "cytologie") {
+      if (p[0]) meta.category = p[0].toLowerCase();
     } else {
-      // chimie-g, chimie-o, histology
+      // chimie-g, chimie-o
       if (p[0]) meta.category = p[0].toLowerCase();
     }
 
