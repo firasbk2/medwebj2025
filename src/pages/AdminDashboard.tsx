@@ -254,6 +254,11 @@ const AdminDashboard = () => {
             style={{ background: 'linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)))', color: 'hsl(240 20% 5%)', boxShadow: '0 0 30px hsl(var(--neon-cyan) / 0.4)' }}>
             {loading ? <span className="flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Verifying...</span> : "ENTER DASHBOARD"}
           </button>
+          <Link to="/"
+            className="block w-full py-3 rounded-xl text-center text-sm font-medium transition-all duration-300 mt-3"
+            style={{ color: 'hsl(var(--neon-cyan) / 0.7)', border: '1px solid hsl(var(--neon-cyan) / 0.15)' }}>
+            ← Retour à l'accueil
+          </Link>
         </form>
       </div>
     );

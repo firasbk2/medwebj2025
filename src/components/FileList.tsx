@@ -35,8 +35,11 @@ function deriveFilters(module: string, language: string, path: string[]) {
   } else if (module === "physiologie") {
     if (path[0]) filters.topic = path[0];
     if (path[1]) filters.category = path[1].toLowerCase();
+  } else if (module === "histology") {
+    if (path[0]) filters.category = path[0].toLowerCase();
+    if (path[0]?.toLowerCase() === "cours" && path[1]) filters.topic = path[1];
   } else {
-    // chimie-g, chimie-o, histology
+    // chimie-g, chimie-o, cytologie
     if (path[0]) filters.category = path[0].toLowerCase();
   }
 
