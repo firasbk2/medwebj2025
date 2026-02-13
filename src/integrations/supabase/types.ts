@@ -70,7 +70,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      files_public: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          file_size: number | null
+          file_type: string | null
+          id: string | null
+          is_visible: boolean | null
+          language: string | null
+          module: string | null
+          name: string | null
+          professor: string | null
+          region: string | null
+          sub_category: string | null
+          topic: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          file_size?: number | null
+          file_type?: string | null
+          id?: string | null
+          is_visible?: boolean | null
+          language?: string | null
+          module?: string | null
+          name?: string | null
+          professor?: string | null
+          region?: string | null
+          sub_category?: string | null
+          topic?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          file_size?: number | null
+          file_type?: string | null
+          id?: string | null
+          is_visible?: boolean | null
+          language?: string | null
+          module?: string | null
+          name?: string | null
+          professor?: string | null
+          region?: string | null
+          sub_category?: string | null
+          topic?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
