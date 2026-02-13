@@ -1,31 +1,27 @@
 import { GraduationCap, BookOpen, FileText, Video, Globe } from "lucide-react";
-import heroMedical from "@/assets/hero-medical.jpg";
+import heroDna from "@/assets/hero-dna.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-      {/* Full background medical image */}
-      <div className="absolute inset-0">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-background">
+      {/* DNA image on the right */}
+      <div className="absolute right-0 top-0 w-[55%] h-full">
         <img
-          src={heroMedical}
-          alt="Medical science background"
+          src={heroDna}
+          alt="DNA double helix"
           className="w-full h-full object-cover"
           loading="eager"
         />
-        {/* Gradient overlays for depth */}
+        {/* Fade from left */}
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to right, hsl(220 40% 2% / 0.92) 0%, hsl(220 40% 2% / 0.6) 50%, hsl(220 40% 2% / 0.4) 100%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to top, hsl(220 40% 2% / 0.95) 0%, transparent 40%, transparent 80%, hsl(220 40% 2% / 0.7) 100%)'
+          background: 'linear-gradient(to right, hsl(var(--background)) 0%, hsl(var(--background) / 0.7) 30%, transparent 70%)'
         }} />
       </div>
 
-      {/* Ambient glow effects */}
-      <div className="absolute w-[400px] h-[400px] rounded-full blur-[120px] top-20 left-10 orb-float"
-        style={{ background: 'radial-gradient(circle, hsl(192 100% 50% / 0.08), transparent)' }} />
-      <div className="absolute w-[300px] h-[300px] rounded-full blur-[100px] bottom-20 right-20 orb-float-reverse"
-        style={{ background: 'radial-gradient(circle, hsl(210 80% 40% / 0.06), transparent)' }} />
+      {/* Top/bottom fades */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'linear-gradient(to top, hsl(var(--background)) 0%, transparent 30%, transparent 85%, hsl(var(--background) / 0.6) 100%)'
+      }} />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-xl">
@@ -58,7 +54,7 @@ const HeroSection = () => {
             ].map(({ icon: Icon, value, label }) => (
               <div key={label} className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center glass-crystal"
-                  style={{ border: '1px solid hsl(192 100% 50% / 0.1)' }}>
+                  style={{ border: '1px solid hsl(var(--primary) / 0.1)' }}>
                   <Icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                 </div>
                 <div>
@@ -73,7 +69,7 @@ const HeroSection = () => {
 
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24" style={{
-        background: 'linear-gradient(to top, hsl(220 40% 2%), transparent)'
+        background: 'linear-gradient(to top, hsl(var(--background)), transparent)'
       }} />
     </section>
   );
