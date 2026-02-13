@@ -39,7 +39,7 @@ const ModuleCard = ({ module, index }: ModuleCardProps) => {
       className="group block opacity-0 animate-slide-up"
       style={{ animationDelay: `${index * 80}ms`, animationFillMode: 'forwards' }}
     >
-      <div className="relative overflow-hidden rounded-2xl h-72 transition-all duration-500 hover:-translate-y-2"
+      <div className="relative overflow-hidden rounded-2xl h-72 transition-all duration-500"
         style={{
           background: 'linear-gradient(135deg, hsl(210 50% 15% / 0.4), hsl(215 45% 8% / 0.6))',
           backdropFilter: 'blur(20px)',
