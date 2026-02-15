@@ -15,6 +15,7 @@ export interface ModuleConfig {
   color: string;
   description: string;
   descriptionFr: string;
+  skipLanguage?: boolean;
   tree: ModuleCategory[];
 }
 
@@ -170,8 +171,10 @@ export const modules: ModuleConfig[] = [
     color: "neon-cyan",
     description: "Fundamental chemical principles",
     descriptionFr: "Principes chimiques fondamentaux",
+    skipLanguage: true,
     tree: [
       { label: "Cours", isFileLevel: true },
+      { label: "TD", isFileLevel: true },
       { label: "TP", isFileLevel: true },
     ],
   },
