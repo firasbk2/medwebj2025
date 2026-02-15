@@ -13,7 +13,9 @@ const ModulePage = () => {
   const navigate = useNavigate();
   const moduleConfig = modules.find((m) => m.id === moduleId);
 
-  const [language, setLanguage] = useState<"en" | "fr" | null>(null);
+  const [language, setLanguage] = useState<"en" | "fr" | null>(
+    moduleConfig?.skipLanguage ? "fr" : null
+  );
   const [path, setPath] = useState<ModuleCategory[]>([]);
 
   const handleLanguageSelect = useCallback((lang: "en" | "fr") => {
@@ -28,12 +30,12 @@ const ModulePage = () => {
   const handleBack = useCallback(() => {
     if (path.length > 0) {
       setPath((prev) => prev.slice(0, -1));
-    } else if (language) {
+    } else if (language && !moduleConfig?.skipLanguage) {
       setLanguage(null);
     } else {
       navigate("/");
     }
-  }, [path, language, navigate]);
+  }, [path, language, navigate, moduleConfig]);
 
   const handleBreadcrumbNavigate = useCallback(
     (index: number) => {
@@ -65,7 +67,7 @@ const ModulePage = () => {
 
   const breadcrumbItems = [
     language === "en" ? moduleConfig.name : moduleConfig.nameFr,
-    ...(language ? [language === "en" ? "English" : "Français"] : []),
+    ...(!moduleConfig.skipLanguage && language ? [language === "en" ? "English" : "Français"] : []),
     ...path.map((p) => p.label),
   ];
 
@@ -122,7 +124,7 @@ const ModulePage = () => {
         )}
 
         {/* Content */}
-        {!language ? (
+        {!language && !moduleConfig.skipLanguage ? (
           <LanguageSelector onSelect={handleLanguageSelect} />
         ) : showFiles ? (
           <FileList
